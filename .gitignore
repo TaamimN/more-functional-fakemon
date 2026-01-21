@@ -205,3 +205,17 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+
+# Data & model weights
+data/
+*.csv
+*.pth
+*.pt
+
+# Docker build files
+*.dockerignore
+
+# Secrets / keys
+*.pem
+*.key
