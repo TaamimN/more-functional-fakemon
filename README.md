@@ -1,10 +1,3 @@
-# BEFORE PUSHING PLEASE
-- add gitignores...
-  - training data
-  - model weights
-  - aws key lmao
-  - dockerignore?
-
 # Pokemon Type & Stats Predictor
 
 CNN-based model that predicts Pokemon types and base stats from images. Built for learning AWS deployment, Docker, and APIs
