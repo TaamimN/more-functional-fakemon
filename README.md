@@ -2,9 +2,11 @@
 
 CNN-based model that predicts Pokemon types and base stats from images. Built for learning AWS deployment, Docker, and APIs
 
-A containerized ML API that predicts the types and stats of a doodle.
-Built using PyTorch, FastApi
-Dockerized and deployed on AWS EC2 (http://3.148.255.151/docs)
+A containerized machine learning API that predicts Pokémon types and base stats from images.
+The model is implemented in PyTorch, served via FastAPI, containerized with Docker, and deployed on AWS EC2.
+
+**Frontend:** https://more-functional-fakemon.vercel.app
+**API Docs**: http://3.148.255.151/docs 
 
 ## Demo
 
@@ -16,15 +18,16 @@ prob a table of some sample images and then json output but id like to make a ni
 - Dockerized for easy deployment
 - Hosted on AWS EC2
 
-
-## Tech Stack
-- Python 3.10
-- PyTorch (ML model)
-- FastAPI (REST API)
-- Docker (containerization)
-- AWS EC2 (deployment)
+## Architecture Overvie
+- Model: CNN trained in PyTorch to predict Pokémon types and base stats from images
+- API: FastAPI service exposing a `/predict` endpoint
+- Containerization: Docker image containing model weights and API server
+- Backend Deployment: AWS EC2 instance running the Docker container
+- Frontend: React application deployed on Vercel that consumes the API
+- CORS Handling: Configured to allow requests from the frontend domain
 
 ## Local Installation
+Frontend is optional and a lightweight React app deployable on Vercel after editing frontend/src/components/Predictor.js fetch to endpoint
 
 ### Docker Image
 ```bash
@@ -73,6 +76,12 @@ Upload an image file to get predicted types and stats
   "total_stats": 510
 }
 ```
+
+## Deployment Notes
+- The backend runs in a Docker container on AWS EC2.
+- Model weights are not committed to the repository and must be downloaded separately.
+- The frontend is deployed independently on Vercel.
+- The frontend supports mock responses for offline or demo-only usage.
 
 ## Limitations
 The dataset used for training was incredibly small (~720 pokemon from generations 1-6)

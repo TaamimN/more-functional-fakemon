@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Predictor.css";
 
 function Predictor() {
   const [file, setFile] = useState(null);
@@ -10,7 +11,7 @@ function Predictor() {
     const f = e.target.files[0];
     setFile(f);
     setImagePreview(URL.createObjectURL(f));
-    setResult(null); // reset previous result
+    setResult(null);
   };
 
   const handlePredict = async () => {
@@ -34,47 +35,56 @@ function Predictor() {
   };
 
   return (
-    <div style={{ marginTop: "1rem" }}>
-      <input type="file" accept="image/png" onChange={handleFileChange} />
-      <button onClick={handlePredict} style={{ marginLeft: "1rem" }}>
-        Predict
-      </button>
+    <div className="predictor-container">
+      <div className="upload-section">
+        <label className="file-input-label">
+          <input type="file" accept="image/png" onChange={handleFileChange} className="file-input" />
+          <span className="file-input-button">Choose Image</span>
+        </label>
+        <button onClick={handlePredict} className="predict-button" disabled={!file || loading}>
+          {loading ? "Predicting..." : "Predict"}
+        </button>
+      </div>
 
       {imagePreview && (
-        <div style={{ marginTop: "1rem" }}>
-          <h3>Preview:</h3>
-          <img src={imagePreview} alt="upload preview" width="128" />
+        <div className="preview-section">
+          <h3>Preview</h3>
+          <img src={imagePreview} alt="upload preview" className="preview-image" />
         </div>
       )}
 
-      {loading && <p>Loading...</p>}
-
       {result && (
-        <div style={{ marginTop: "1rem" }}>
-          <h3>Predicted Types:</h3>
-          <ul>
-            {result.types.map((t, i) => (
-              <li key={i}>
-                {t.type} (Confidence: {t.confidence})
-              </li>
-            ))}
-          </ul>
-
-          <h3>Predicted Stats:</h3>
-          <table border="1" cellPadding="5">
-            <tbody>
-              {Object.entries(result.stats).map(([key, value]) => (
-                <tr key={key}>
-                  <td>{key}</td>
-                  <td>{value}</td>
-                </tr>
+        <div className="results-section">
+          <div className="types-card">
+            <h3>Predicted Types</h3>
+            <div className="types-list">
+              {result.types.map((t, i) => (
+                <div key={i} className="type-item">
+                  <span className="type-name">{t.type}</span>
+                  <span className="type-confidence">{(t.confidence * 100).toFixed(1)}%</span>
+                </div>
               ))}
-              <tr>
-                <td><b>Total</b></td>
-                <td>{result.total_stats}</td>
-              </tr>
-            </tbody>
-          </table>
+            </div>
+          </div>
+
+          <div className="stats-card">
+            <h3>Predicted Stats</h3>
+            <div className="stats-grid">
+              {Object.entries(result.stats).map(([key, value]) => (
+                <div key={key} className="stat-item">
+                  <span className="stat-name">{key}</span>
+                  <div className="stat-bar-container">
+                    <div className="stat-bar" style={{ width: `${(value / 255) * 100}%` }}></div>
+                  </div>
+                  <span className="stat-value">{value}</span>
+                </div>
+              ))}
+              <div className="stat-total">
+                <span>Total</span>
+                <span className="total-value">{result.total_stats}</span>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
