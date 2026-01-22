@@ -8,9 +8,111 @@ The model is implemented in PyTorch, served via FastAPI, containerized with Dock
 **Frontend:** https://more-functional-fakemon.vercel.app
 **API Docs**: http://3.148.255.151/docs 
 
-## Demo
+## Demo Results
+Below are some example predictions from the model. Each screenshot shows the uploaded image and the model’s predicted types and base stats.
 
-prob a table of some sample images and then json output but id like to make a nicer ui for these ss to exit on first
+<div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 20px;">
+  <div>
+    <img src="./demo_images/aggron.png" alt="Screenshot 3" style="width: 1500px; object-fit: contain; border: 1px solid #ccc; border-radius: 8px;">
+  </div>
+
+  <div>
+    <h4>Predicted vs Intended</h4>
+    <strong>Types:</strong> <br> Predicted: Rock <br> Intended: Rock / Steel <br><br>
+    <strong>Stats:</strong> <br>
+    HP: 81 / 70 <br>
+    Attack: 94 / 110 <br>
+    Defense: 94 / 180 <br>
+    Sp. Atk: 90 / 60 <br>
+    Sp. Def: 88 / 60 <br>
+    Speed: 81 / 50 <br>
+    BST (Total): 528 / 530 <br><br>
+    <strong>Notes:</strong> This sample shows how well predictions can be at times. The type prediction was monotype, likely due to the abundance of monotype pokemon, however it still properly predicted the rock type. Additionally, the model accurately determined attack and defense as Aggron's highest stats. Unfortunately, Aggron's stats are very polarized for game mechanics purposes (and because stats such as special attack and special defense are abstract) so it would be incredibly unlike to guess a defense of 180 or attack of 110. In spite of this, the BST the model predicted is still remarkably close to that of the actual Pokemon.
+  </div>
+</div>
+
+<div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 20px;">
+  <div>
+    <img src="./demo_images/penguin.png" alt="Screenshot 2" style="width: 800px; object-fit: contain; border: 1px solid #ccc; border-radius: 8px;">
+  </div>
+
+  <div>
+    <h4>Predicted vs Intended</h4>
+    <strong>Types:</strong> <br> Predicted: Grass <br> Intended: Ice <br><br>
+    <strong>Stats:</strong> <br>
+    HP: 75 / 45 <br>
+    Attack: 78 / 55 <br>
+    Defense: 77 / 45 <br>
+    Sp. Atk: 81 / 65 <br>
+    Sp. Def: 76 / 45 <br>
+    Speed: 72 / 75 <br><br>
+    BST (Total): 459 / 330 <br><br>
+    <strong>Notes:</strong> This sample shows how strongly the model favors color. While we can see visual design elements such as a penguin and a snowflake, the model has no way of identifying these relations with the ice type with its limited training data. However, the model does strongly link the grass type when green is a primary color in the image.
+  </div>
+</div>
+
+
+<div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 20px;">
+  <div>
+    <img src="./demo_images/chip.png" alt="Screenshot 3" style="width: 700px; object-fit: contain; border: 1px solid #ccc; border-radius: 8px;">
+  </div>
+
+  <div>
+    <h4>Predicted vs Intended</h4>
+    <strong>Types:</strong> <br> Predicted: Fairy <br> Intended: None <br><br>
+    <strong>Stats:</strong> <br>
+    HP: 66 / None <br>
+    Attack: 59 / None <br>
+    Defense: 62 / None <br>
+    Sp. Atk: 61 / None <br>
+    Sp. Def: 57 / None <br>
+    Speed: 45 / None <br>
+    BST (Total): 350 / None <br><br>
+    <strong>Notes:</strong> This sample was to test on an image created with no particular intention. The model seems to have guessed the fairy type with its common accent colors of blue and white with its overall round shape (azurill/marill/azumarill, jigglypuff, carbink, etc.)It's also interesting to note that the predicted BST is remarkably lower than that of the average Pokemon (~455)
+  </div>
+</div>
+
+## Model Performance
+
+### Type Prediction
+- Micro F1 Score: 0.3773
+- Perfect Match: 10.43%
+### Type Prediction Distribution
+
+| Type      | Count | Percentage |
+|-----------|-------|------------|
+| Psychic   | 32    | 19.6%      |
+| Water     | 29    | 17.8%      |
+| Flying    | 27    | 16.6%      |
+| Grass     | 25    | 15.3%      |
+| Dark      | 17    | 10.4%      |
+| Fairy     | 12    | 7.4%       |
+| Fire      | 11    | 6.7%       |
+| Bug       | 10    | 6.1%       |
+| Steel     | 9     | 5.5%       |
+| Poison    | 5     | 3.1%       |
+| Ghost     | 4     | 2.5%       |
+| Ice       | 3     | 1.8%       |
+| Normal    | 1     | 0.6%       |
+| Electric  | 1     | 0.6%       |
+| Rock      | 1     | 0.6%       |
+| Dragon    | 1     | 0.6%       |
+| Fighting  | 0     | 0.0%       |
+| Ground    | 0     | 0.0%       |
+
+
+### Stat Prediction
+- MAE: 22.36
+- RMSE: 28.06
+  | Predicted Stat | Mean  | Std Dev |
+  |----------------|-------|---------|
+  | HP             | 72.61 | 6.10    |
+  | Attack         | 84.46 | 9.72    |
+  | Defense        | 81.46 | 6.80    |
+  | Sp. Atk        | 76.61 | 6.08    |
+  | Sp. Def        | 73.87 | 7.20    |
+  | Speed          | 72.55 | 8.55    |
+- Predicted Total BST: Mean = 461.55, Std Dev = 35.76
 
 ## Tech Stack
 - **Model**: PyTorch CNN (4-layer architecture)
@@ -58,7 +160,7 @@ Upload an image file to get predicted types and stats
 - multipart/form-data
   - file: Pokemon image (.png) (ideally transparent background)
 
-**Response:**
+**Response Example:**
 ```json
 {
   "types": [

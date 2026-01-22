@@ -16,7 +16,7 @@ function App() {
             <h3>API Not Working?</h3>
             <p>If predictions fail, the Cloudflare tunnel may be down. You can still access the API directly:</p>
             <a href="http://3.148.255.151/docs" target="_blank" rel="noopener noreferrer" className="info-link">
-              View API Documentation
+              View API Docs
             </a>
           </div>
           <div className="info-card">
