@@ -34,7 +34,7 @@
 
 .predict-button {
   padding: 0.75rem 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #51CF66 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -45,7 +45,7 @@
 
 .predict-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
 }
 
 .predict-button:disabled {
@@ -105,7 +105,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #51CF66 100%);
   border-radius: 8px;
   color: white;
 }
@@ -147,7 +147,7 @@
 
 .stat-bar {
   height: 100%;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #FF6B6B 0%, #4ECDC4 50%, #51CF66 100%);
   transition: width 0.5s ease;
   border-radius: 12px;
 }
@@ -155,7 +155,7 @@
 .stat-value {
   text-align: right;
   font-weight: 600;
-  color: #667eea;
+  color: #FF6B6B;
 }
 
 .stat-total {
@@ -170,7 +170,7 @@
 }
 
 .total-value {
-  color: #667eea;
+  color: #FF6B6B;
 }
 
 @media (max-width: 600px) {
