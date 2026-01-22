@@ -1,6 +1,6 @@
 # Pokemon Type & Stats Predictor
 
-CNN-based model that predicts Pokemon types and base stats from images. Built for learning AWS deployment, Docker, and APIs
+CNN-based model that predicts Pokemon types and base stats from Fakemon, which is a term for any fake or custom created Pokemon. Demonstrates AWS deployment, Docker, and APIs
 
 A containerized machine learning API that predicts Pokémon types and base stats from images.
 The model is implemented in PyTorch, served via FastAPI, containerized with Docker, and deployed on AWS EC2.
@@ -12,22 +12,22 @@ The model is implemented in PyTorch, served via FastAPI, containerized with Dock
 
 prob a table of some sample images and then json output but id like to make a nicer ui for these ss to exit on first
 
-## Features
-- Upload an image of a doodle to predict both its and all 6 stats based on training data of official Pokemon images
-- REST API built with FastAPI
-- Dockerized for easy deployment
-- Hosted on AWS EC2
+## Tech Stack
+- **Model**: PyTorch CNN (4-layer architecture)
+- **API**: FastAPI with automatic OpenAPI docs
+- **Containerization**: Docker
+- **Backend**: AWS EC2 (t2.micro)
+- **Frontend**: React + Vercel
+- **Tunnel**: Cloudflare for HTTPS
 
-## Architecture Overvie
-- Model: CNN trained in PyTorch to predict Pokémon types and base stats from images
-- API: FastAPI service exposing a `/predict` endpoint
-- Containerization: Docker image containing model weights and API server
-- Backend Deployment: AWS EC2 instance running the Docker container
-- Frontend: React application deployed on Vercel that consumes the API
-- CORS Handling: Configured to allow requests from the frontend domain
+## Model Details
+- Architecture: Custom CNN with separate heads for type and stat prediction
+- Training: ~720 Pokemon images (Generations 1-6)
+- Input: 128x128 RGB images
+- Output: Multi-label type classification + 6 base stat regression
 
 ## Local Installation
-Frontend is optional and a lightweight React app deployable on Vercel after editing frontend/src/components/Predictor.js fetch to endpoint
+Frontend is optional and a lightweight React app deployable on Vercel after editing frontend/src/components/Predictor.js fetch to endpoint.
 
 ### Docker Image
 ```bash
@@ -83,13 +83,12 @@ Upload an image file to get predicted types and stats
 - The frontend is deployed independently on Vercel.
 - The frontend supports mock responses for offline or demo-only usage.
 
-## Limitations
-The dataset used for training was incredibly small (~720 pokemon from generations 1-6)
-Pokemon types and stats are hard to predict, as it can be said that Pokemon designs are often intentionally unique therefore broad prediction is not very effective
-Most pokemon are monotype, with 17 of the top 20 most abundant type combinations consisting of monotypes
- - Therefore simple CNNs such as this will often blanket prefer to predict monotypes
-This simple CNN mostly predicts based on color and vague shape/size
- - Neither of which are especially good at predicting stats, which can be notoriously unpredictable based on design alone
+## Model Limitations
+The model faces several inherent challenges:
+**Dataset Size**: Training on only 720 images limits the model's ability to generalize. Modern Pokemon and fan-created designs would improve coverage.
+**Type Imbalance**: ~50% of Pokemon are mono-type, causing the model to favor single-type predictions. The top 20 type combinations include 17 mono-types.
+**Feature Learning**: The CNN primarily learns color-based patterns with limited shape understanding. This works reasonably for types (blue = Water) but struggles with stats, which don't correlate strongly with visual features.
+**Design Philosophy**: Pokemon designs intentionally subvert expectations (some Pokemon base stat distribution is particularly polar, such as Shuckle), making visual-only prediction fundamentally difficult.
 
 ## Future Improvements
 This dataset could be improved with the introduction of new/modern pokemon and finer tuning to avoid type combination / stat spread trends

@@ -22,7 +22,7 @@ function App() {
           <div className="info-card">
             <h3>How It Works</h3>
             <p>Check out the source code and architecture details on GitHub:</p>
-            <a href="https://github.com/yourusername/your-repo" target="_blank" rel="noopener noreferrer" className="info-link">
+            <a href="https://github.com/TaamimN/more-functional-fakemon#" target="_blank" rel="noopener noreferrer" className="info-link">
               View on GitHub
             </a>
           </div>
