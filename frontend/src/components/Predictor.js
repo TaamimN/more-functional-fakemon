@@ -21,7 +21,7 @@ function Predictor() {
     formData.append("file", file);
 
     try {
-      const response = await fetch("https://biotechnology-directories-competent-cache.trycloudflare.com/predict", {
+      const response = await fetch("https://reprints-crystal-reasonably-muslim.trycloudflare.com/predict", {
         method: "POST",
         body: formData,
       });
