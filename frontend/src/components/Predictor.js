@@ -20,7 +20,7 @@ function Predictor() {
     formData.append("file", file);
 
     try {
-      const response = await fetch("http://localhost:8000/predict", {
+      const response = await fetch("http://3.148.255.151/predict", {
         method: "POST",
         body: formData,
       });

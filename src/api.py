@@ -28,7 +28,7 @@ app = FastAPI(title="More Functional Fakemon API", version="1.0", lifespan=lifes
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React dev server
+    allow_origins=["https://more-functional-fakemon.vercel.app/"],  # frontend webs
     allow_methods=["*"],
     allow_headers=["*"],
 )
