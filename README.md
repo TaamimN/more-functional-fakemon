@@ -26,7 +26,7 @@ prob a table of some sample images and then json output but id like to make a ni
 
 ## Local Installation
 
-### Docker (recommended)
+### Docker Image
 ```bash
 docker pull entroxx/more_functional_fakemon:latest
 docker run -d -p 8000:8000 entroxx/more_functional_fakemon:latest
@@ -36,6 +36,7 @@ Visit `http://localhost:8000/docs` to test endpoints in Swagger UI
 ### Local Development / Custom Training
 Note that weights are not committed but may be found at:
 - https://drive.google.com/file/d/1ms-bdnI7Hx-hht0-FQGOUP3Nh88ZSyhF/view?usp=sharing
+Place file in root directory of folder
 ```bash
 git clone https://github.com/TaamimN/more-functional-fakemon.git
 cd more-functional-fakemon
@@ -91,4 +92,4 @@ Taking in more information (such as a name for the design) along with lexographi
 Project is currently only for demo purposes. Pull requests are welcome for retraining or improvements
 
 ## License
-MIT License, refer to license file
+MIT License, refer to LICENSE
